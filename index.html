@@ -117,7 +117,7 @@
 <body>
     <header>
         <h1>Money Game</h1>
-        <p id="money">0money</p>
+        <p id="money">0 money</p>
     </header>
 
     <section id="tasks">
@@ -157,7 +157,7 @@
                 <div>
                     <p>${taskName}</p>
                     <input type="text" id="${inputId}" placeholder="Your answer">
-                    <button onclick="checkAnswer('${answer}', '${inputId}', ${reward}, this.parentNode)">Submit</button>
+                    <button data-answer="${answer}" data-input-id="${inputId}" data-reward="${reward}" class="check-answer-button">Submit</button>
                 </div>
             `;
 
@@ -230,6 +230,19 @@
             }
             updateCountdown();
         }, 1000);
+
+        // Event delegation to handle button clicks
+        taskList.addEventListener("click", function (event) {
+            if (event.target.classList.contains("check-answer-button")) {
+                const button = event.target;
+                const inputId = button.getAttribute("data-input-id");
+                const reward = parseInt(button.getAttribute("data-reward"), 10);
+                const answer = button.getAttribute("data-answer");
+                const taskItem = button.parentNode;
+
+                checkAnswer(answer, inputId, reward, taskItem);
+            }
+        });
 
         // Add initial tasks
         addTask("What is 5 + 7?", 5, "12");
