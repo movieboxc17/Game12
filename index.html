@@ -202,7 +202,7 @@
                 fakeMoney += reward;
                 moneyDisplay.textContent = `${fakeMoney} money`;
                 alert(`Correct! You earned ${reward} money.`);
-                // Remove only the task that was answered correctly
+                // Remove the task item that contains the button clicked
                 taskList.removeChild(taskItem);
             } else {
                 alert("Incorrect. Try again.");
